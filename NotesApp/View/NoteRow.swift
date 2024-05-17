@@ -9,7 +9,14 @@ import SwiftUI
 
 struct NoteRow: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Text("Username: ConMeo")
+                .frame(maxWidth: .infinity, alignment: .leadingFirstTextBaseline)
+            Text("gbnergbhjerbgebgr iengbuorengorehng oregoirgoei")
+                .offset(CGSize(width: 10.0, height: 10.0))
+            Spacer()
+        }
     }
 }
 

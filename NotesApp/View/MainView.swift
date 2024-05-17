@@ -9,7 +9,21 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            AddNote()
+                .tabItem {
+                    Label("Add", systemImage: "pencil.line")
+                }
+            Notes()
+            //                .badge(2)
+                .tabItem {
+                    Label("Notes", systemImage: "pencil.circle")
+                }
+            SavedNotes()
+                .tabItem {
+                    Label("Saved Note", systemImage: "tray.and.arrow.down.fill")
+                }
+        }
     }
 }
 

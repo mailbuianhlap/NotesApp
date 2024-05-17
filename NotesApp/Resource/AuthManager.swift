@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import FirebaseAuth
+
+class AuthManager: ObservableObject {
+    @Published var isSignedIn: Bool = false
+    
+    init() {
+        self.isSignedIn = Auth.auth().currentUser != nil
+        Auth.auth().addStateDidChangeListener { (_, user) in
+            self.isSignedIn = user != nil
+        }
+    }
+}
