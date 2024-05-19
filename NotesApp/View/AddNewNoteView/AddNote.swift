@@ -12,9 +12,10 @@ struct AddNote: View {
     @State private var username: String = ""
     @State  private var email = ""
     @State private var showingAlert = false
+    @State private var checkSendDataSuccess = false
     @StateObject var viewModel = AddNoteViewModel()
     @EnvironmentObject var authManager: AuthManager
-  
+    
     var body: some View {
         VStack {
             HStack{
@@ -44,27 +45,38 @@ struct AddNote: View {
             )
             .padding()
             Button {
-                if username == "" {
+                if username == "" || fullText == "" {
                     showingAlert = true
                 }else{
                     viewModel.addData(userName: username, value: fullText)
+                    fullText = ""
+                    checkSendDataSuccess = true
                 }
-                fullText = ""
+               
             }label: {
                 Text("Send")
-            }
-            .padding()
+                
+            }.padding()
+                .background(.black)
+                .cornerRadius(10)
+                .shadow(color: .gray,radius: 1, x:0, y:5)
+            
             Button {
                 authManager.logOut()
             }label: {
                 Text("Log Out")
-            }
-            .padding()
+            }.padding()
+                .background(.black)
+                .cornerRadius(10)
+                .shadow(color: .gray,radius: 1, x:0, y:5)
+                .padding()
         }
         .onAppear{
             authManager.fetchData()
         }
-        .alert("Enter Username!", isPresented: $showingAlert) {
+        .alert("Enter Username and note!", isPresented: $showingAlert) {
+            Button("OK", role: .cancel) { }
+        }.alert("Success create note!", isPresented: $checkSendDataSuccess) {
             Button("OK", role: .cancel) { }
         }
     }

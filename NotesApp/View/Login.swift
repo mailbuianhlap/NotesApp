@@ -21,7 +21,6 @@ struct Login: View {
     }
     var content : some View {
         ZStack {
-            Color.secondary
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .foregroundStyle(.linearGradient(colors: [.pink, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(width: 500, height: 1000)

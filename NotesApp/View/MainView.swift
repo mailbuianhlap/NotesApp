@@ -16,14 +16,19 @@ struct MainView: View {
                 .tabItem {
                     Label("Add", systemImage: "pencil.line")
                 }.tag(0)
+            MyNotes()
+                .tabItem {
+                    Label("My Note", systemImage: "note")
+                }.tag(1)
             Notes()
                 .tabItem {
-                    Label("Notes", systemImage: "pencil.circle")
-                }.tag(1)
+                    Label("Notes", systemImage: "list.bullet.clipboard")
+                }.tag(2)
             SavedNotes()
                 .tabItem {
                     Label("Saved Note", systemImage: "tray.and.arrow.down.fill")
-                }.tag(2)
+                        
+                }.tag(3)
         }.onAppear{
             authManager.fetchData()
         }

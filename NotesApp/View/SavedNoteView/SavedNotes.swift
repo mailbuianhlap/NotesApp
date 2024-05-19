@@ -1,35 +1,31 @@
 //
-//  Notes.swift
+//  SavedNotes.swift
 //  NotesApp
 //
 //  Created by Bui Anh Lap on 18/5/24.
 //
 
 import SwiftUI
-struct Notes: View {
-    @StateObject var viewModel = NotesViewModel()
+
+struct SavedNotes: View {
+    @StateObject var viewModel = MyNotesViewModel()
     @EnvironmentObject var authManager : AuthManager
     var body: some View {
         VStack {
-            if authManager.allNoteObject != nil {
-
+            if authManager.noteObject != nil {
                 NavigationSplitView {
-                    List(authManager.allNoteObject!.notes, id: \.timestamp) { dataOfNote in
+                    List(authManager.noteObject!.savedNote, id: \.timestamp) { dataOfNote in
                         NavigationLink {
-                            NoteDetail()
+                            SavedNoteDetail( noteData: dataOfNote)
                         } label: {
-                            
-                            NoteRow(noteData: dataOfNote)
+                            SavedNoteRow(noteData: dataOfNote)
                         }
-                        
                     }
-                    .navigationTitle("Notes")
+                    .navigationTitle("My Notes")
                 }detail: {
-                    
                 }
-             
             }else{
-                Text("Nothing to show here!")
+                Text("Dont have any notes!")
                     .padding()
                     .background(
                         Color.gray
@@ -37,11 +33,11 @@ struct Notes: View {
             }
         }
         .onAppear{
-            viewModel.readObject()
+//            viewModel.fetchData()
         }
     }
 }
 
 #Preview {
-    Notes()
+    SavedNotes()
 }

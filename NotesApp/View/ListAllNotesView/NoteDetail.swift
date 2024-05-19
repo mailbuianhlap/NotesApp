@@ -9,12 +9,10 @@ import SwiftUI
 
 struct NoteDetail: View {
     var body: some View {
-
         VStack {
             Text("Username: ")
             Text("Note: ")
         }
-       
     }
 }
 

@@ -10,21 +10,10 @@ import FirebaseDatabase
 import FirebaseDatabaseSwift
 import FirebaseAuth
 class NotesViewModel : ObservableObject {
-    
-    
     var ref = Database.database().reference()
-    let user = Auth.auth().currentUser
     @Published
     var noteObject: AllNotesModel? = nil
-    @Published
-    var userName: String? = nil
-//    func readValue() {
-//        ref.child("AllNotes/\(user!.uid)/userName").observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            self.userName = snapshot.value as? String
-//        })
-//    }
-    func readObject() {
+    func fetchData() {
         ref.child("AllNotes/allNotes").observe(.value, with: {
             snapshot in
             do {

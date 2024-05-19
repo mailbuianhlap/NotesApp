@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct NoteRow: View {
-    @EnvironmentObject var authManager: AuthManager
-//    var noteData : NotePublicModel
     var noteData : NotePublicModel
     var body: some View {
-       
         VStack {
             Text("Username: \(noteData.userName)")
                 .frame(maxWidth: .infinity, alignment: .leading)
