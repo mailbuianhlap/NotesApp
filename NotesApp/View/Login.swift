@@ -8,21 +8,18 @@
 import SwiftUI
 import FirebaseAuth
 struct Login: View {
+    
+    var noteObject: NotesObjectModel? = nil
     @State  private var email = ""
     @State  private var password = ""
-    @State  private var userIsLoggedIn = false
+//    @State  private var userIsLoggedIn = false
     @EnvironmentObject var authManager: AuthManager
     var body: some View {
-//        if userIsLoggedIn{
-//            MainView()
-//        }else{
-//            content
-//        }
         if authManager.isSignedIn {
-                  MainView()
-               } else {
-                   content
-               }
+            MainView()
+        } else {
+            content
+        }
     }
     var content : some View {
         ZStack {
@@ -31,8 +28,6 @@ struct Login: View {
                 .foregroundStyle(.linearGradient(colors: [.pink, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(width: 500, height: 1000)
             VStack(spacing: 20) {
-              
-                
                 TextField("Email", text: $email)
                     .foregroundColor(.white)
                     .textFieldStyle(.plain)
@@ -48,7 +43,7 @@ struct Login: View {
                     .frame(width: 350, height: 1)
                 
                 Button {
-                    login()
+                    authManager.login(email: email, password: password)
                 } label: {
                     Text("Sign in")
                         .bold()
@@ -59,26 +54,18 @@ struct Login: View {
                 
             }
             .frame(width: 350)
-//            .onAppear {
-//                Auth.auth().addStateDidChangeListener({
-//                    auth, user in
-//                    if user != nil {
-//                        userIsLoggedIn.toggle()
-//                    }
-//                })
-//            }
+            .onAppear {
+                //                Auth.auth().addStateDidChangeListener({
+                //                    auth, user in
+                //                    if user != nil {
+                //                        userIsLoggedIn.toggle()
+                //                    }
+                //                })
+                //                authManager.readObject()
+            }
         }.ignoresSafeArea()
     }
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password, completion: {
-            result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }else{
-                
-            }
-        })
-    }
+    
 }
 
 #Preview {

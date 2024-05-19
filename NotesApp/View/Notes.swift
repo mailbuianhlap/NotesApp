@@ -6,22 +6,38 @@
 //
 
 import SwiftUI
-var dataGlobal: [NotesObject] = []
 struct Notes: View {
+    @StateObject var viewModel = NotesViewModel()
+    @EnvironmentObject var authManager : AuthManager
     var body: some View {
-        NavigationSplitView {
-            List(dataGlobal) { dataGlobal in
-                NavigationLink {
-//                    LandmarkDetail(landmark: landmark)
-                } label: {
-//                    LandmarkRow(landmark: landmark)
-                    NoteRow()
+        VStack {
+            if authManager.allNoteObject != nil {
+
+                NavigationSplitView {
+                    List(authManager.allNoteObject!.notes, id: \.timestamp) { dataOfNote in
+                        NavigationLink {
+                            NoteDetail()
+                        } label: {
+                            
+                            NoteRow(noteData: dataOfNote)
+                        }
+                        
+                    }
+                    .navigationTitle("Notes")
+                }detail: {
+                    
                 }
-                
+             
+            }else{
+                Text("Nothing to show here!")
+                    .padding()
+                    .background(
+                        Color.gray
+                    )
             }
-            .navigationTitle("Notes")
-        }detail: {
-            
+        }
+        .onAppear{
+            viewModel.readObject()
         }
     }
 }

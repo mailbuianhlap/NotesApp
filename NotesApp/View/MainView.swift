@@ -8,22 +8,27 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var selection = 0
+    @EnvironmentObject var authManager: AuthManager
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             AddNote()
                 .tabItem {
                     Label("Add", systemImage: "pencil.line")
-                }
+                }.tag(0)
             Notes()
             //                .badge(2)
                 .tabItem {
                     Label("Notes", systemImage: "pencil.circle")
-                }
+                }.tag(1)
             SavedNotes()
                 .tabItem {
                     Label("Saved Note", systemImage: "tray.and.arrow.down.fill")
-                }
+                }.tag(2)
+        }.onAppear{
+            authManager.readObject()
         }
+        
     }
 }
 

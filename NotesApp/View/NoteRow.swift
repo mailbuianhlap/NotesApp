@@ -8,18 +8,25 @@
 import SwiftUI
 
 struct NoteRow: View {
+    @EnvironmentObject var authManager: AuthManager
+//    var noteData : NotePublicModel
+    var noteData : NotePublicModel
     var body: some View {
-        
+       
         VStack {
-            Text("Username: ConMeo")
-                .frame(maxWidth: .infinity, alignment: .leadingFirstTextBaseline)
-            Text("gbnergbhjerbgebgr iengbuorengorehng oregoirgoei")
-                .offset(CGSize(width: 10.0, height: 10.0))
+            Text("Username: \(noteData.userName)")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("Timestamp: \(String(describing: noteData.timestamp!))")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("Note: \(noteData.note)")
+                .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
         }
     }
 }
 
 #Preview {
-    NoteRow()
+    Group{
+        NoteRow(noteData: NotePublicModel(userName: "321", timestamp:21321312, note: "123"))
+    }
 }

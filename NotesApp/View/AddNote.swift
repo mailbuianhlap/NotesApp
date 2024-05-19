@@ -9,16 +9,18 @@ import SwiftUI
 import FirebaseAuth
 struct AddNote: View {
     @State private var fullText: String = ""
-    @State private var username: String = "User1"
+    @State private var username: String = ""
     @State  private var email = ""
     @StateObject var viewModel = AddNoteViewModel()
+    @EnvironmentObject var authManager: AuthManager
+    @State private var showingAlert = false
     var body: some View {
         VStack {
             HStack{
                 Text("Username:")
                     .bold()
                 VStack{
-                    TextField("", text: $username)
+                    TextField("Enter Username", text: $username)
                         .textFieldStyle(.plain)
                         .foregroundColor(.black)
                     Divider()
@@ -42,32 +44,36 @@ struct AddNote: View {
                     .stroke(Color.gray, lineWidth: 1)
             )
             .padding()
-            
-            
-            
-            
             Button {
-                viewModel.pushObject(userName: username, value: fullText)
+                if username == "" {
+                    showingAlert = true
+                   
+                }else{
+
+                    viewModel.addData(userName: username, value: fullText)
+                }
+               
                 fullText = ""
             }label: {
                 Text("Send")
             }
             .padding()
             Button {
-               LogOut()
+                authManager.logOut()
             }label: {
                 Text("Log Out")
             }
             .padding()
         }
-    }
-    func LogOut() {
-        do {
-            try Auth.auth().signOut()
-        } catch let err as NSError {
-            print("Error logout: \(err.localizedDescription)")
+        .onAppear{
+            authManager.readObject()
+            authManager.arrNote = viewModel.arrNote
         }
+        .alert("Enter Username!", isPresented: $showingAlert) {
+                   Button("OK", role: .cancel) { }
+               }
     }
+ 
 }
 
 #Preview {
