@@ -13,16 +13,22 @@ class Helper {
     static let shared = Helper()
     var arrNote = Array<NoteModel>()
     var arrSavedNote = Array<savedNoteModel>()
+    var arrAllNote = Array<NotePublicModel>()
+    
     var noteObject: NotesObjectModel? = nil
-   
+    var allNoteObject: AllNotesModel? = nil
+    func releaseData() {
+        arrNote.removeAll()
+        arrSavedNote.removeAll()
+        arrAllNote.removeAll()
+        noteObject = nil
+        allNoteObject = nil
+    }
 }
 class AuthManager: ObservableObject {
     
   
     var ref = Database.database().reference()
-    @Published var arrNote = Array<NoteModel>()
-    @Published var arrSavedNote = Array<savedNoteModel>()
-    @Published var arrAllNote = Array<NotePublicModel>()
     @Published var noteObject: NotesObjectModel? = nil
     @Published var allNoteObject: AllNotesModel? = nil
     @Published var isSignedIn: Bool = false
@@ -33,31 +39,28 @@ class AuthManager: ObservableObject {
             isSignedIn = user != nil
         }
     }
-    func releaseData() {
-        self.arrNote.removeAll()
-        self.arrAllNote.removeAll()
-        self.arrSavedNote.removeAll()
+    func fetchData() {
+        fetchNoteObject()
+        fetchAllNoteObject()
     }
-    func readObject() {
-
+    func fetchNoteObject() {
         ref.child("\(Auth.auth().currentUser!.uid)").observe( .value) { [self] snapshot in
             do {
                 self.noteObject = try snapshot.data(as: NotesObjectModel.self)
                 Helper.shared.arrNote = self.noteObject!.notes
                 Helper.shared.arrSavedNote = self.noteObject!.savedNote
                 Helper.shared.noteObject = self.noteObject!
-                print("CHay AuthManager1 thanh cong")
             } catch {
                 print("Cannot convert to NotesObjectModel AuthManager1")
             }
         }
     }
-    func readObject2() {
+    func fetchAllNoteObject() {
         ref.child("AllNotes/allNotes").observe(.value) {
             snapshot in
             do {
                 self.allNoteObject = try snapshot.data(as: AllNotesModel.self)
-                self.arrAllNote = self.allNoteObject!.notes
+                Helper.shared.arrAllNote = self.allNoteObject!.notes
             } catch {
                 print("Cannot convert to NotesObjectModel AuthManager2")
             }
@@ -76,7 +79,7 @@ class AuthManager: ObservableObject {
     func logOut() {
         do {
             try Auth.auth().signOut()
-            self.releaseData()
+            Helper.shared.releaseData()
         } catch let err as NSError {
             print("Error logout: \(err.localizedDescription)")
         }

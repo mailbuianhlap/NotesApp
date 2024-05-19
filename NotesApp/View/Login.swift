@@ -8,11 +8,9 @@
 import SwiftUI
 import FirebaseAuth
 struct Login: View {
-    
     var noteObject: NotesObjectModel? = nil
     @State  private var email = ""
     @State  private var password = ""
-//    @State  private var userIsLoggedIn = false
     @EnvironmentObject var authManager: AuthManager
     var body: some View {
         if authManager.isSignedIn {
@@ -51,21 +49,10 @@ struct Login: View {
                         .background(.pink)
                         .foregroundColor(.white)
                 }.offset(x:0, y: +50)
-                
             }
             .frame(width: 350)
-            .onAppear {
-                //                Auth.auth().addStateDidChangeListener({
-                //                    auth, user in
-                //                    if user != nil {
-                //                        userIsLoggedIn.toggle()
-                //                    }
-                //                })
-                //                authManager.readObject()
-            }
         }.ignoresSafeArea()
     }
-    
 }
 
 #Preview {

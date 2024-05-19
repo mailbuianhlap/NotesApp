@@ -17,7 +17,6 @@ struct MainView: View {
                     Label("Add", systemImage: "pencil.line")
                 }.tag(0)
             Notes()
-            //                .badge(2)
                 .tabItem {
                     Label("Notes", systemImage: "pencil.circle")
                 }.tag(1)
@@ -26,7 +25,7 @@ struct MainView: View {
                     Label("Saved Note", systemImage: "tray.and.arrow.down.fill")
                 }.tag(2)
         }.onAppear{
-            authManager.readObject()
+            authManager.fetchData()
         }
         
     }

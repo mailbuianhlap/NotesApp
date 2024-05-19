@@ -11,9 +11,10 @@ struct AddNote: View {
     @State private var fullText: String = ""
     @State private var username: String = ""
     @State  private var email = ""
+    @State private var showingAlert = false
     @StateObject var viewModel = AddNoteViewModel()
     @EnvironmentObject var authManager: AuthManager
-    @State private var showingAlert = false
+  
     var body: some View {
         VStack {
             HStack{
@@ -28,9 +29,7 @@ struct AddNote: View {
                         .background(Color.black)
                 }
             }.offset(x:20, y:0)
-            
             Text("Write a note:")
-            
             VStack {
                 TextEditor(text: $fullText)
                     .frame(height:400, alignment: .center)
@@ -47,12 +46,9 @@ struct AddNote: View {
             Button {
                 if username == "" {
                     showingAlert = true
-                   
                 }else{
-
                     viewModel.addData(userName: username, value: fullText)
                 }
-               
                 fullText = ""
             }label: {
                 Text("Send")
@@ -66,14 +62,12 @@ struct AddNote: View {
             .padding()
         }
         .onAppear{
-            authManager.readObject()
-            authManager.arrNote = viewModel.arrNote
+            authManager.fetchData()
         }
         .alert("Enter Username!", isPresented: $showingAlert) {
-                   Button("OK", role: .cancel) { }
-               }
+            Button("OK", role: .cancel) { }
+        }
     }
- 
 }
 
 #Preview {
