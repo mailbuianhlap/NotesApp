@@ -12,8 +12,6 @@ import FirebaseDatabaseSwift
 
 class MyNotesViewModel :ObservableObject {
     var ref = Database.database().reference()
-//    @Published
-//    var noteObject: NotesObjectModel? = nil
     func saveNoteToSavedNotes(username: String, timestamp: Int, note: String ) {
         
         let dataNotesObject = NotesObjectModel()

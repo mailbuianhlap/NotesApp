@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseDatabaseSwift
@@ -14,9 +15,9 @@ class Helper {
     var arrNote = Array<NoteModel>()
     var arrSavedNote = Array<savedNoteModel>()
     var arrAllNote = Array<NotePublicModel>()
-    
     var noteObject: NotesObjectModel? = nil
     var allNoteObject: AllNotesModel? = nil
+    
     func releaseData() {
         arrNote.removeAll()
         arrSavedNote.removeAll()
@@ -26,13 +27,11 @@ class Helper {
     }
 }
 class AuthManager: ObservableObject {
-    
-  
+    @Published var checkErrorSignUp: Bool = false
     var ref = Database.database().reference()
     @Published var noteObject: NotesObjectModel? = nil
     @Published var allNoteObject: AllNotesModel? = nil
     @Published var isSignedIn: Bool = false
-    
     init() {
         self.isSignedIn = Auth.auth().currentUser != nil
         Auth.auth().addStateDidChangeListener { [self] (_, user) in
@@ -51,7 +50,7 @@ class AuthManager: ObservableObject {
                 Helper.shared.arrSavedNote = self.noteObject!.savedNote
                 Helper.shared.noteObject = self.noteObject!
             } catch {
-                print("Cannot convert to NotesObjectModel AuthManager1")
+                print("Cannot convert to NotesObjectModel at fetchNoteObject function")
             }
         }
     }
@@ -62,10 +61,19 @@ class AuthManager: ObservableObject {
                 self.allNoteObject = try snapshot.data(as: AllNotesModel.self)
                 Helper.shared.arrAllNote = self.allNoteObject!.notes
             } catch {
-                print("Cannot convert to NotesObjectModel AuthManager2")
+                print("Cannot convert to NotesObjectModel at fetchAllNoteObject function")
             }
         }
     }
+    func signUp(email: String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { [self] (authResult, error) in
+                if let error = error {
+                    checkErrorSignUp = true
+                    print("Error signing up: \(error.localizedDescription)")
+                }
+                
+            }
+        }
     func login(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password, completion: {
             result, error in
@@ -79,7 +87,10 @@ class AuthManager: ObservableObject {
     func logOut() {
         do {
             try Auth.auth().signOut()
+            //release memory of all arr
             Helper.shared.releaseData()
+            self.noteObject = nil
+            self.allNoteObject = nil
         } catch let err as NSError {
             print("Error logout: \(err.localizedDescription)")
         }

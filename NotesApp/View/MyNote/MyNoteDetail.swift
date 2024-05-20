@@ -40,17 +40,19 @@ struct MyNoteDetail: View {
                     }else{
                         if let i = Helper.shared.arrNote.firstIndex(where: { $0.timestamp == noteData.timestamp }) {
                             Helper.shared.arrNote[i].note = _noteString.wrappedValue
-                           }
+                            
+                        }
                         if let i = Helper.shared.arrSavedNote.firstIndex(where: { $0.timestamp == noteData.timestamp }) {
                             Helper.shared.arrSavedNote[i].note = _noteString.wrappedValue
-                           }
+                            Helper.shared.arrSavedNote[i].userName = userName
+                        }
                         if let i = Helper.shared.arrAllNote.firstIndex(where: { $0.timestamp == noteData.timestamp }) {
                             Helper.shared.arrAllNote[i].note = _noteString.wrappedValue
-                           }
+                        }
                         viewModel.editNote(username: userName)
                         checkEditSuccess = true
                     }
-                
+                    
                 }label: {
                     Text("Edit")
                 }.padding()
@@ -70,13 +72,12 @@ struct MyNoteDetail: View {
                         viewModel.saveNoteToSavedNotes(username: userName, timestamp: noteData.timestamp!, note: noteData.note)
                         addToFavoriteFlag = true
                     }
-                    
                 }label: {
                     Text("Add to Favorite")
-                }  .padding()
-                    .buttonStyle(CustomButtonStyle())
+                }
+                .padding()
+                .buttonStyle(CustomButtonStyle())
             }
-            
         }.onAppear{
             _noteString.wrappedValue = noteData.note
         }

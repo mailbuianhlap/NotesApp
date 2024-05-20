@@ -11,16 +11,18 @@ import FirebaseDatabaseSwift
 import FirebaseAuth
 class NotesViewModel : ObservableObject {
     var ref = Database.database().reference()
-    @Published
-    var noteObject: AllNotesModel? = nil
-    func fetchData() {
-        ref.child("AllNotes/allNotes").observe(.value, with: {
-            snapshot in
-            do {
-                self.noteObject = try snapshot.data(as: AllNotesModel.self)
-            } catch {
-                print("Cannot convert to NotesObjectModel NotesViewModel")
-            }
-        })
+    func saveNoteToSavedNotes(username: String, timestamp: Int, note: String ) {
+        
+        let dataNotesObject = NotesObjectModel()
+        dataNotesObject.userName = username
+        
+        dataNotesObject.notes = Helper.shared.arrNote
+      
+            Helper.shared.arrSavedNote.append(savedNoteModel(userName: username, timestamp: timestamp, note: note))
+        
+        dataNotesObject.savedNote = Helper.shared.arrSavedNote
+        
+        // push data to User.uid
+        ref.child("\( String(describing: Auth.auth().currentUser!.uid))").setValue(dataNotesObject.toDictionary)
     }
 }

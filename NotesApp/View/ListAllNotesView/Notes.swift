@@ -7,7 +7,6 @@
 
 import SwiftUI
 struct Notes: View {
-    @StateObject var viewModel = NotesViewModel()
     @EnvironmentObject var authManager : AuthManager
     var body: some View {
         VStack {
@@ -15,8 +14,9 @@ struct Notes: View {
                 NavigationSplitView {
                     List(authManager.allNoteObject!.notes, id: \.timestamp) { dataOfNote in
                         NavigationLink {
-                            NoteDetail()
+                            NoteDetail(noteData: dataOfNote)
                         } label: {
+                            
                             NoteRow(noteData: dataOfNote)
                         }
                     }
@@ -30,9 +30,6 @@ struct Notes: View {
                         Color.gray
                     )
             }
-        }
-        .onAppear{
-//            viewModel.fetchData()
         }
     }
 }

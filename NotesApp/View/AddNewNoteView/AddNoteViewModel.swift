@@ -11,12 +11,15 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class AddNoteViewModel : ObservableObject {
-//    var arrNote = Array<NoteModel>()
     var ref = Database.database().reference()
     @StateObject var authManager = AuthManager()
     func addData(userName: String,value: String) {
         // timestamp = uid for note object
         let timestamp = Int(NSDate.timeIntervalSinceReferenceDate*1000)
+        writeNotesObjectModel(userName: userName, value: value, timestamp: timestamp)
+        writeAllNotesModel(userName: userName, value: value, timestamp: timestamp)
+    }
+    func writeNotesObjectModel(userName: String,value: String, timestamp: Int) {
         var dataNotesObject = NotesObjectModel()
         dataNotesObject.userName = userName
         // check if noteObject exist or not to push new data
@@ -36,6 +39,8 @@ class AddNoteViewModel : ObservableObject {
         }
         // push data to User.uid
         ref.child("\( String(describing: Auth.auth().currentUser!.uid))").setValue(dataNotesObject.toDictionary)
+    }
+    func writeAllNotesModel(userName: String,value: String, timestamp: Int) {
         var dataAllNotesObject = AllNotesModel()
         Helper.shared.arrAllNote.append(NotePublicModel(userName: userName, timestamp: timestamp, note: value))
         dataAllNotesObject.notes =   Helper.shared.arrAllNote

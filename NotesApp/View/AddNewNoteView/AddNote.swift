@@ -23,11 +23,10 @@ struct AddNote: View {
                     .bold()
                 VStack{
                     TextField("Enter Username", text: $username)
-                        .textFieldStyle(.plain)
+                        .textFieldStyle(.roundedBorder)
                         .foregroundColor(.black)
-                    Divider()
-                        .frame(height: 1)
-                        .background(Color.black)
+                        .frame(width: 230)
+                        
                 }
             }.offset(x:20, y:0)
             Text("Write a note:")
@@ -73,6 +72,7 @@ struct AddNote: View {
         }
         .onAppear{
             authManager.fetchData()
+            username = authManager.noteObject?.userName ?? ""
         }
         .alert("Enter Username and note!", isPresented: $showingAlert) {
             Button("OK", role: .cancel) { }

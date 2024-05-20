@@ -39,7 +39,7 @@ struct SavedNoteDetail: View {
                 Button{
                     
                 }label: {
-                    Text("Add to Favorite")
+                    Text("Delete")
                 }  .padding()
                     .buttonStyle(CustomButtonStyle())
                 

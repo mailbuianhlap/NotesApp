@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct MyNoteRow: View {
-    var userName : String
+//    var userName : String
     var noteData : NoteModel
     var body: some View {
         VStack {
-            Text("Username: \(userName)")
-                .frame(maxWidth: .infinity, alignment: .leading)
+//            Text("Username: \(userName)")
+//                .frame(maxWidth: .infinity, alignment: .leading)
             Text("Note: \(noteData.note)")
                 .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
@@ -22,5 +22,5 @@ struct MyNoteRow: View {
 }
 
 #Preview {
-    MyNoteRow( userName: "Cat", noteData: NoteModel(timestamp: 23432432, note: "321321321"))
+    MyNoteRow( noteData: NoteModel(timestamp: 23432432, note: "321321321"))
 }

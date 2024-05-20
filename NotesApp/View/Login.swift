@@ -11,6 +11,9 @@ struct Login: View {
     var noteObject: NotesObjectModel? = nil
     @State  private var email = ""
     @State  private var password = ""
+    @State private var checkNilMailAndPass = false
+    @State private var checkSignUpFail = false
+    @State private var checkSignUpSuccess = false
     @EnvironmentObject var authManager: AuthManager
     var body: some View {
         if authManager.isSignedIn {
@@ -40,7 +43,11 @@ struct Login: View {
                     .frame(width: 350, height: 1)
                 
                 Button {
-                    authManager.login(email: email, password: password)
+                    if email == "" || password == "" {
+                        checkNilMailAndPass = true
+                    }else{
+                        authManager.login(email: email, password: password)
+                    }
                 } label: {
                     Text("Sign in")
                         .bold()
@@ -51,6 +58,9 @@ struct Login: View {
             }
             .frame(width: 350)
         }.ignoresSafeArea()
+            .alert("Please enter email and password!", isPresented: $checkNilMailAndPass) {
+                Button("OK", role: .cancel) { }
+            }
     }
 }
 

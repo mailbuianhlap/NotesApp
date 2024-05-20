@@ -13,17 +13,11 @@ struct SavedNotes: View {
     var body: some View {
         VStack {
             if authManager.noteObject != nil {
-                NavigationSplitView {
-                    List(authManager.noteObject!.savedNote, id: \.timestamp) { dataOfNote in
-                        NavigationLink {
-                            SavedNoteDetail( noteData: dataOfNote)
-                        } label: {
-                            SavedNoteRow(noteData: dataOfNote)
-                        }
-                    }
-                    .navigationTitle("My Notes")
-                }detail: {
+                List(authManager.noteObject!.savedNote, id: \.timestamp) { dataOfNote in
+                    SavedNoteRow(noteData: dataOfNote)
                 }
+                .navigationTitle("My Notes")
+                
             }else{
                 Text("Dont have any notes!")
                     .padding()
@@ -32,9 +26,7 @@ struct SavedNotes: View {
                     )
             }
         }
-        .onAppear{
-//            viewModel.fetchData()
-        }
+        
     }
 }
 

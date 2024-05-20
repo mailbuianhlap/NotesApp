@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MyNotes: View {
-    
-    @StateObject var viewModel = MyNotesViewModel()
     @EnvironmentObject var authManager : AuthManager
     var body: some View {
         VStack {
@@ -19,10 +17,10 @@ struct MyNotes: View {
                         NavigationLink {
                             MyNoteDetail(userName: authManager.noteObject!.userName, noteData: dataOfNote)
                         } label: {
-                            MyNoteRow(userName: authManager.noteObject!.userName, noteData: dataOfNote)
+                            MyNoteRow(noteData: dataOfNote)
                         }
                     }
-                    .navigationTitle("My Notes")
+                    .navigationTitle("\(authManager.noteObject!.userName)'s Notes")
                 }detail: {
                 }
             }else{
@@ -32,9 +30,6 @@ struct MyNotes: View {
                         Color.gray
                     )
             }
-        }
-        .onAppear{
-//            viewModel.fetchData()
         }
     }
 }

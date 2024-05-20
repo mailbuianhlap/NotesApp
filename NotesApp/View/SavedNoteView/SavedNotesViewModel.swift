@@ -13,7 +13,7 @@ class SavedNotesViewModel: ObservableObject {
 //    var ref = Database.database().reference()
 //    @Published
 //    var noteObject: NotesObjectModel? = nil
-//    func fetchData() {
+//    func delete() {
 //        ref.child("\(String(Auth.auth().currentUser!.uid))").observe(.value, with: {
 //            snapshot in
 //            do {
@@ -23,4 +23,14 @@ class SavedNotesViewModel: ObservableObject {
 //            }
 //        })
 //    }
+//    func edit() {
+ //        ref.child("\(String(Auth.auth().currentUser!.uid))").observe(.value, with: {
+ //            snapshot in
+ //            do {
+ //                self.noteObject = try snapshot.data(as: NotesObjectModel.self)
+ //            } catch {
+ //                print("Cannot convert to NotesObjectModel NotesViewModel")
+ //            }
+ //        })
+ //    }
 }

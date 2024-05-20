@@ -11,7 +11,7 @@
 		73536B2A2BFA5671002FF2B0 /* MyNoteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B292BFA5671002FF2B0 /* MyNoteRow.swift */; };
 		73536B2E2BFA58A0002FF2B0 /* MyNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B2D2BFA58A0002FF2B0 /* MyNotesViewModel.swift */; };
 		73536B302BFA58EA002FF2B0 /* MyNoteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B2F2BFA58EA002FF2B0 /* MyNoteDetail.swift */; };
-		73536B342BFA633D002FF2B0 /* AllCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B332BFA633D002FF2B0 /* AllCustom.swift */; };
+		73536B342BFA633D002FF2B0 /* AllCustomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B332BFA633D002FF2B0 /* AllCustomize.swift */; };
 		73536B362BFA6AA6002FF2B0 /* SavedNotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B352BFA6AA6002FF2B0 /* SavedNotesViewModel.swift */; };
 		73536B382BFA6AB8002FF2B0 /* SavedNoteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B372BFA6AB8002FF2B0 /* SavedNoteRow.swift */; };
 		73536B3A2BFA6ADF002FF2B0 /* SavedNoteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73536B392BFA6ADF002FF2B0 /* SavedNoteDetail.swift */; };
@@ -42,7 +42,7 @@
 		73536B292BFA5671002FF2B0 /* MyNoteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNoteRow.swift; sourceTree = "<group>"; };
 		73536B2D2BFA58A0002FF2B0 /* MyNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotesViewModel.swift; sourceTree = "<group>"; };
 		73536B2F2BFA58EA002FF2B0 /* MyNoteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNoteDetail.swift; sourceTree = "<group>"; };
-		73536B332BFA633D002FF2B0 /* AllCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCustom.swift; sourceTree = "<group>"; };
+		73536B332BFA633D002FF2B0 /* AllCustomize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCustomize.swift; sourceTree = "<group>"; };
 		73536B352BFA6AA6002FF2B0 /* SavedNotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedNotesViewModel.swift; sourceTree = "<group>"; };
 		73536B372BFA6AB8002FF2B0 /* SavedNoteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedNoteRow.swift; sourceTree = "<group>"; };
 		73536B392BFA6ADF002FF2B0 /* SavedNoteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedNoteDetail.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		73536B322BFA630C002FF2B0 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				73536B332BFA633D002FF2B0 /* AllCustom.swift */,
+				73536B332BFA633D002FF2B0 /* AllCustomize.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -292,7 +292,7 @@
 				73A2BA032BF7FBCF00C93A2E /* AuthManager.swift in Sources */,
 				73536B362BFA6AA6002FF2B0 /* SavedNotesViewModel.swift in Sources */,
 				73A2B9E72BF7E20D00C93A2E /* Login.swift in Sources */,
-				73536B342BFA633D002FF2B0 /* AllCustom.swift in Sources */,
+				73536B342BFA633D002FF2B0 /* AllCustomize.swift in Sources */,
 				73536B382BFA6AB8002FF2B0 /* SavedNoteRow.swift in Sources */,
 				73536B2E2BFA58A0002FF2B0 /* MyNotesViewModel.swift in Sources */,
 				73BBF2172BF9EDD100CEED8F /* Models.swift in Sources */,
